@@ -10,17 +10,18 @@ class MenuController
     #You reference the creation of a new AddressBook entry with an instance variable that can be used thoughout this program!
   end
 
-  def main_menu       #This shows the total number of entries that are listed
+  def main_menu  #This shows the total number of entries that are listed
     puts "Main Menu - #{@address_book.entries.size} entries"
     puts "1 - View all entries"
     puts "2 - Create an Entry"
     puts "3 - Search for an Entry"
     puts "4 - Import entries from CSV"
-    puts "5 - Dip out (Exit)"
+    puts "5 - View Entry Number"
+    puts "6 - Dip out (Exit)"
     print "Enter your selection:"
 
     selection = gets.to_i
-    # Case Statement! Solid refresher. def perf for a menu. Each choice has a seperate route.
+    # Case Statement! Solid refresher. Each choice has a seperate route.
     # So think of Case Statements as a a signpost. Each route you take has different conditions
     case selection
     when 1
@@ -40,6 +41,18 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      p "Please specify the entry number:"
+      number = gets.chomp
+      h = {}
+      @address_book.entries.each do |entry|
+      h << :index entry
+      index += 1
+        if number == index
+          puts entry
+        end
+      end
+    when 6
       puts "Peace, dog."
       exit(0)
       # exit(0) signals that the program is ending without an error
@@ -75,9 +88,7 @@ class MenuController
     phone_number = gets.chomp
     print "email:"
     email = gets.chomp
-
     @address_book.add_entry(name, phone_number, email)
-
     system "clear"
     puts "Got it! Thanks for your contribution."
   end
