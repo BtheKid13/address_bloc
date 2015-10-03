@@ -43,15 +43,30 @@ class MenuController
     when 5
       system "clear"
       p "Please specify the entry number:"
-      number = gets.chomp
-      h = {}
-      @address_book.entries.each do |entry|
-      h << :index entry
-      index += 1
-        if number == index
-          puts entry
-        end
+      # First we have to convert the entry to an integer because it defaults as a string
+      number = gets.chomp.to_i
+      # This was the tricky part! remember the entries is an Array.
+      #So we can just reference the place of the array that the entry is at.
+      entry = @address_book.entries[number]
+      # if entry converts to a boolean––if it's true than...
+      if entry
+        puts entry
+      else
+        puts "no entry at this index"
       end
+      # This was a simple version of doing it in a very complicated way.
+      # Try to stay as DRY as you can. Remember the Root of the code that you're referencing
+
+      # h = {}
+      # @address_book.entries.each do |entry|
+      # h << :index entry
+      # index += 1
+      #   if number == index
+      #     puts entry
+      #   end
+      # end
+      main_menu
+      # Yup, main_menu is a break. Because with Case Statements, they will run until you tell them to stop!
     when 6
       puts "Peace, dog."
       exit(0)
